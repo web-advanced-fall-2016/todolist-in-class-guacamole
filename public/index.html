@@ -5,18 +5,28 @@
   <meta charset="utf-8">
   <title>Todo List</title>
   <link rel="stylesheet" type="text/css" href="styles/reset.css">
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 
 <body>
- <section id="content">
-   <h1>TO DO LIST</h1>
+   <div id = "ToDoList">
+    <section id="content">
 
-   <p><input type="text" name="todo" placeholder="shit that needs completion." /></p>
-   <ul id="todos"></ul>
+      <h1>TO DO LIST</h1>
+
+      <div id = "taskAdder">
+         <input type="text" id="newTask" name="todo" placeholder="shit that needs completion.">
+         <input type="submit" id="addButton" value="add task">
+      </div>
+
+      <div id = "taskList">
+
+      </div>
+   </dive>
 </section>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="script/main.js"></script>
 
-<script src="build.js"></script>
-<script src="app.js"></script>
 
 </body>
 

@@ -14,6 +14,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*====================
     YOUR CODE
 ====================*/
+app.use('/', root);
+app.use('/taskList', tasks);
 
 const server = http.createServer(app);
 server.listen(port, () => {

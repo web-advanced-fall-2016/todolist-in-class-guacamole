@@ -1,5 +1,4 @@
-
- {
+{
   box-sizing: border-box;
 }
 
@@ -8,18 +7,33 @@ body {
   font: 14px Helvetica;
 }
 
-input[type=text] {
-  padding: 100px;
+.inputBox input[type=text] {
+  /*padding: 100px;*/
   width: 800px;
   border-radius: 3px;
   border: 1px solid #eee;
   border-top-color: #ddd;
 }
 
+#newTask{
+ width:800px;
+ border-radius: 5px;
+}
 
 
-#content {
-  width: 400px;
-  position: relative;
+#deleteButton{
+   height:24px;
+   width:24px;
+   margin-top: -28px;
+   margin-right: 5px;
+   padding: 0px;
+   float:right;
+}
+
+.list{
+   width:600px;
+   height:800px;
+   border: 1px solid #eee;
+  border-top-color: #ddd;
 }
 
