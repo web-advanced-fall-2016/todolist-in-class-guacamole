@@ -1,0 +1,25 @@
+
+ {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 50px;
+  font: 14px Helvetica;
+}
+
+input[type=text] {
+  padding: 100px;
+  width: 800px;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  border-top-color: #ddd;
+}
+
+
+
+#content {
+  width: 400px;
+  position: relative;
+}
+
