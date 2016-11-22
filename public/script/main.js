@@ -1,83 +1,111 @@
-let taskArray = [];
+// steps:
+// 1. load the initial list on client side page
+// 2. after typing and clicking add button, add a new item to the list on the server side(into json file)
+// 3. when an item is successfully added to the list array, show the item on client side, and enable remove
+// 4. when clicking the remove button on the client side, delete the item on both sides(server and client)
+// 5. refresh the list after adding or deleting an item
 
-let baseURL = "localhost:3000";
+// console.log('this is main.js');
 
-var updateTasks = function(){
-    var taskListHolding = document.getElementById('taskList');
+(function(){
+    console.log("heyhey");
 
-    taskListHolding.innerHTML = '';
+    let baseURL = "http://localhost:3000";
+    let itemArray = [];
+    let list = document.querySelector('.taskList');
+    let addBtn = document.querySelector('.addButton');
 
-    var len = taskArray.length;
-    var i;
+    function updateList(){
+        console.log('updateUpdateUpdate');
+        $.ajax({
+            method: "GET",
+            url: `${baseURL}/list`
+        }).done(function (res) {
+            // console.log(res);
+            for(let item of res){
+                // console.log(item);
+                $.ajax({
+                    method: 'GET',
+                    url: `${baseURL}/list/${item.id}`
+                }).done(function(res){
+                    // console.log(res);
+                    // console.log(res.description);
+                    item = document.createElement('div');
+                    item.classList.add('item');
+                    item.id = `${res.id}`;
+                    item.innerHTML = `
+                    <div class = "text">${res.description}</div>
+                    <div class = deleteButton>X</div>
+                    `
+                    list.appendChild(item);
+                    itemArray.push(res);
+                    console.log(res.id);
 
-    for(i = 0; i < len; i++){
-        console.log('task ' + i + ': ' + taskArray[i]);
+                    let deleteBtn = document.querySelector('.deleteButton');
+                    deleteBtn.addEventListener('click', function(e){
+                        // console.log(deleteBtn);
+                        // console.log(e.target);
+                        if(e.target === this){
+                            // console.log(this);
+                            // console.log('clickkkkk');
+                            e.preventDefault();
 
-        var newTask = document.createElement('div');
+                            let itemID = e.target.parentElement.id;
+                            // console.log(e.target.parentElement);
+                            // console.log(itemID);
+                            deleteItem(itemID);
+                        }
 
-        newTask.id = i;
-        newTask.className = 'task';
-
-        var task = document.createElement('p');
-        task.innerText = taskArray[i];
-
-        var deleteButton = document.createElement('button');
-        deleteButton.id = 'deleteButton';
-        deleteButton.innerText = 'X';
-        deleteButton.addEventListener('click', function(e){
-            e.preventDefault();
-            deleteTask(e);
-        });
-        newTask.appendChild(task);
-        newTask.appendChild(deleteButton);
-
-        taskListHolding.appendChild(newTask);
-    };
-};
-
-//save task
-var saveTask = function(){
-    $.ajax({
-        method: "GET",
-        url: `${baseURL}`
-    }).done(function (response) {
-        for (let student of response) {
-            $.ajax({
-                method: 'GET',
-                url: `${baseURL}/taskList`
-            }).done(function(res){
-                    // console.log(res.profilepicture);
-                    var taskInput = document.getElementById('newTask');
-                    var newTask = taskInput.value;
-
-                    taskArray.push(newTask);
-                    updateTasks();
-                    taskInput.value = '';
-                    console.log(taskArray);
+                    });
                 });
-        }
-    });
-};
+            }
+        });
+    };
 
-var deleteTask = function(e){
+    function addItem(){
+        console.log("addddddd");
+        $.ajax({
+            method: "GET",
+            url: `${baseURL}/list`,
+        }).done(function (res) {
+            let taskInput = document.querySelector('#inputBox');
+            let description = taskInput.value;
+            let newItem = {description: description, id: itemArray.length+1}
+            itemArray.push(newItem);
+            console.log(newItem);
+            addToServer(newItem);
+        });
+    };
 
-    var taskNumber = e.target.parentElement.id;
-    taskArray.splice(taskNumber, 1);
-    updateTasks();
+    function deleteItem(item){
+        console.log("delete!!!!!");
+        deleteInServer(item);
+    }
 
-};
+    function addToServer(newItem){
+        $.ajax({
+            method: "POST",
+            url: `${baseURL}/list`,
+            data: newItem,
+        });
+        // updateList();
+    }
+
+    function deleteInServer(item){
+        // updateList();
+    }
 
 
-var init = function(){
+    function init(){
+        console.log('initialize please');
+        //add event listener for click
+        addBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            addItem(e);
+        });
+        updateList();
+    }
 
-    var addButton = document.getElementById("addButton");
+    init();
 
-    //add event listener for click
-    addButton.addEventListener('click', function(e){
-
-        e.preventDefault();
-        saveTask();
-    });
-};
-
-window.onload = init();
+})();

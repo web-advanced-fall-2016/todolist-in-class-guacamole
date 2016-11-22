@@ -1,13 +1,13 @@
 [{
-        "description": "item-1",
+        "description": "avocado",
         "id": 0
     },
     {
-        "description": "item-2",
+        "description": "pineapple",
         "id": 1
     },
     {
-        "description": "item-3",
+        "description": "apple",
         "id": 2
     }
 ]
