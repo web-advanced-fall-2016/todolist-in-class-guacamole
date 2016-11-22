@@ -28,7 +28,7 @@ let db = {
 
     updateList: ()=> {
         fs.writeFile('./todolist.json', JSON.stringify(list), (err) => {
-         if (err){
+           if (err){
             console.log('File not updated');
             console.log('File updated!');
         }

@@ -21,15 +21,11 @@
             method: "GET",
             url: `${baseURL}/list`
         }).done(function (res) {
-            // console.log(res);
             for(let item of res){
-                // console.log(item);
                 $.ajax({
                     method: 'GET',
                     url: `${baseURL}/list/${item.id}`
                 }).done(function(res){
-                    // console.log(res);
-                    // console.log(res.description);
                     item = document.createElement('div');
                     item.classList.add('item');
                     item.id = `${res.id}`;
@@ -43,16 +39,10 @@
 
                     let deleteBtn = document.querySelector('.deleteButton');
                     deleteBtn.addEventListener('click', function(e){
-                        // console.log(deleteBtn);
-                        // console.log(e.target);
                         if(e.target === this){
-                            // console.log(this);
                             // console.log('clickkkkk');
                             e.preventDefault();
-
                             let itemID = e.target.parentElement.id;
-                            // console.log(e.target.parentElement);
-                            // console.log(itemID);
                             deleteItem(itemID);
                         }
 
@@ -94,7 +84,6 @@
     function deleteInServer(item){
         // updateList();
     }
-
 
     function init(){
         console.log('initialize please');

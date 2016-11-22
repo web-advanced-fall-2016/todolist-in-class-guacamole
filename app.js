@@ -43,8 +43,6 @@ app.get('/list/:item_id', function(req,res,next){
         res.json(item);
     else
         res.json(`item with id: ${id} was'nt found!`)
-    console.log("get the id =" + id);
-    console.log("get the item ="+item);
     next();
 });
 
