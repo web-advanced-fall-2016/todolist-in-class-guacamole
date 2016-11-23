@@ -31,11 +31,11 @@ Team Guacamole viewed the professor's API example to understand the "GET" and "P
 
 ### Server Info and API Endpoints
 
-A NodeJS server is setup. currentlly, it cannot be accessed through ip address, you have to run the server locally, you will need to clone the server code from the this repository. More information, check out ####HOW TO RUN THE CODE 
+A NodeJS server is setup. Currentlly, it cannot be accessed through ip address, you have to run the server locally, you will need to clone the server code from the this repository. More information, check out "HOW TO RUN THE CODE"
 Team Guacamole's server side uses JSON (http://json.org/) format. The server provides the following API endpoints:
 
 
-Coming soon...
+####Coming soon...
 
 
 ## Requirements
