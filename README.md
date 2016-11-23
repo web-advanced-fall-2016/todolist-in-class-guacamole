@@ -1,8 +1,44 @@
 # Session 11 / in class exercise
 
-# Team Guacamole
-## Marielle, Yue
+## Team Guacamole: Marielle, Yue
+## Steps
+### FEATURES
 
+1) Add new item(s) to To Do List into text input box/bar.
+	- To add a To Do List item, type into the input box/bar and click the "Add" button. 
+	- New item(s) should appear underneath the bar/box with an "X" button next to it.
+2) Delete (completed) item(s) from the To Do List.
+	- To delete"X" button located next to each To Do List item 
+3) To Do List is saved on the server side for later reference.
+
+### HOW TO RUN THE CODE 
+
+Clone or download this folder onto your computer.
+
+On the server side:
+    Open Terminal, navigate to the folder, enter -npm install, and after it's done, enter -npm start.
+    
+On the client side:
+    once the server is running, open web browser, open localhost on port 3000.
+
+
+### LIBRARIES / REFERENCES
+
+Team Guacamole referenced styling and web wireframes from a previous MFADT bootcamp web project example. This included simple HTML structure as well as some client-side Javascript for add/delete actions for To Do List items.
+
+Team Guacamole viewed the professor's API example to understand the "GET" and "POST" request on the server side.
+
+
+### Server Info and API Endpoints
+
+A NodeJS server is setup. currentlly, it cannot be accessed through ip address, you have to run the server locally, you will need to clone the server code from the this repository. More information, check out ####HOW TO RUN THE CODE 
+Team Guacamole's server side uses JSON (http://json.org/) format. The server provides the following API endpoints:
+
+
+Coming soon...
+
+
+## Requirements
 ### Setup
 
 We are going to split into groups of two. Each team should collaborate to reach our goal. It's gonna be like the idea of [pair programming](https://en.wikipedia.org/wiki/Pair_programming). Engagement of both the students in coding is important. How to split the work is totally up to the teams (i.e. one person for front-end and the other for back-end).
