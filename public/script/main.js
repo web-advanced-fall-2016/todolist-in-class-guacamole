@@ -1,9 +1,14 @@
 // steps:
 // 1. load the initial list on client side page
-// 2. after typing and clicking add button, add a new item to the list on the server side(into json file)
-// 3. when an item is successfully added to the list array, show the item on client side, and enable remove
-// 4. when clicking the remove button on the client side, delete the item on both sides(server and client)
-// 5. refresh the list after adding or deleting an item
+
+// 2. add item function:
+// 2.1 after typing, when hit enter or click the add button, add a new item to the list on the server side(into json file)
+// 2.2 when an item is successfully added to the server side, show the item on client side, and enable remove
+
+// 3. remove item function:
+// 3.1 when clicking the remove button on the client side, delete the item on server side
+// 3.2 refresh the list on client side(remove the item in client side);
+
 
 // console.log('this is main.js');
 
@@ -14,9 +19,18 @@
     let itemArray = [];
     let list = document.querySelector('.taskList');
     let addBtn = document.querySelector('.addButton');
+    let input = document.querySelector('#inputBox');
 
-    function updateList(){
-        console.log('updateUpdateUpdate');
+    if (document.readyState != "loading") {
+        app();
+    } else {
+        document.addEventListener('DOMContentLoaded', function() {
+            app();
+        }, false);
+    }
+
+    function init(){
+        console.log('getgetget');
         $.ajax({
             method: "GET",
             url: `${baseURL}/list`
@@ -36,65 +50,87 @@
                     list.appendChild(item);
                     itemArray.push(res);
                     console.log(res.id);
-
-                    let deleteBtn = document.querySelector('.deleteButton');
-                    deleteBtn.addEventListener('click', function(e){
-                        if(e.target === this){
-                            // console.log('clickkkkk');
-                            e.preventDefault();
-                            let itemID = e.target.parentElement.id;
-                            deleteItem(itemID);
-                        }
-
-                    });
                 });
             }
         });
     };
 
-    function addItem(){
-        console.log("addddddd");
+    function addToServer(data){
         $.ajax({
-            method: "GET",
-            url: `${baseURL}/list`,
-        }).done(function (res) {
-            let taskInput = document.querySelector('#inputBox');
-            let description = taskInput.value;
-            let newItem = {description: description, id: itemArray.length+1}
+            method: "POST",
+            data:data,
+            url: `${baseURL}/list/addItem`,
+            success:console.log(data + "sent")
+        }).done(function(res){
+            addItem(res);
+        });
+    };
+
+    function addItem(newItem){
+        // console.log("addddddd");
+        // $.ajax({
+        //     method: "GET",
+        //     url: `${baseURL}/list`,
+        // }).done(function (res) {
+
+            let description = input.value;
+            newItem = {description: description, id: itemArray.length}
             itemArray.push(newItem);
             console.log(newItem);
             addToServer(newItem);
+
+            newItem = document.createElement('div');
+            newItem.classList.add('item');
+            newItem.id = itemArray.length-1;
+            newItem.innerHTML = `
+            <div class = "text">${description}</div>
+            <div class = deleteButton>X</div>
+            `
+            list.appendChild(newItem);
+        // });
+
+        console.log("client updated");
+    }
+
+    function deleteInServer(item){
+        $.ajax({
+            method: "POST",
+            data:data,
+            url: `${baseURL}/list/deleteItem`,
+            success:console.log(data + "sent")
+        }).done(function(res){
+            deleteItem(res);
         });
     };
 
     function deleteItem(item){
-        console.log("delete!!!!!");
-        deleteInServer(item);
-    }
-
-    function addToServer(newItem){
-        $.ajax({
-            method: "POST",
-            url: `${baseURL}/list`,
-            data: newItem,
+        let deleteBtn = document.querySelector('.deleteButton');
+        deleteBtn.addEventListener('click', function(e){
+            if(e.target === this){
+                // console.log('clickkkkk');
+                e.preventDefault();
+                let itemID = e.target.parentElement.id;
+                deleteInServer(itemID);
+            }
         });
-        // updateList();
     }
 
-    function deleteInServer(item){
-        // updateList();
-    }
 
-    function init(){
+    function app(){
         console.log('initialize please');
         //add event listener for click
-        addBtn.addEventListener('click', function(e){
-            e.preventDefault();
-            addItem(e);
+        addBtn.addEventListener('click', function(evnt){
+            evnt.preventDefault();
+            addItem(evnt);
         });
-        updateList();
-    }
 
-    init();
+        input.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode == 13) {
+                addBtn.click();
+            }
+        });
+        init();
+    }
 
 })();

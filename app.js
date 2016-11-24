@@ -2,14 +2,14 @@ const http = require('http');
 const express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-
-var favicon = require('serve-favicon');
+const app = express();
 const port = 3000;
 
-const app = express();
+var favicon = require('serve-favicon');
 
 const db = require('./db.js');
 var fs = require('fs');
+var list = require('./todolist')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,10 +29,10 @@ app.use(function(req,res,next){
     next();
 })
 
+
 app.get('/list', function(req, res, next) {
-    let list = db.getList();
-    res.json(list);
-    console.log("get the list!");
+    res.json(db.getList());
+    console.log("app-get the list!");
     next();
 });
 
@@ -43,9 +43,24 @@ app.get('/list/:item_id', function(req,res,next){
         res.json(item);
     else
         res.json(`item with id: ${id} was'nt found!`)
-    next();
+    console.log("app-get the item");
+    // next();
 });
 
+app.post('/list/addItem', function(req,res,next){
+    console.log(req.body);
+    list.push(req.body);
+    db.updateList(req.body);
+    console.log(list);
+});
+
+
+app.post('/list/deleteItem', function(req,res,next){
+    console.log(req.body);
+    list.pop(req.body);
+    db.updateList(req.body);
+    console.log(list);
+});
 
 const server = http.createServer(app);
 server.listen(port, () => {
