@@ -4,6 +4,7 @@
 ## Steps
 
 ### FEATURES
+1)load the initial list on client side
 
 1) load the initial list on client side page
 
