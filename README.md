@@ -2,22 +2,26 @@
 
 ## Team Guacamole: Marielle, Yue
 ## Steps
+
 ### FEATURES
 
-1) Add new item(s) to To Do List into text input box/bar.
-	- To add a To Do List item, type into the input box/bar and click the "Add" button. 
-	- New item(s) should appear underneath the bar/box with an "X" button next to it.
-2) Delete (completed) item(s) from the To Do List.
-	- To delete"X" button located next to each To Do List item 
-3) To Do List is saved on the server side for later reference.
+1) load the initial list on client side page
+2) Add new item(s) to To Do List
+	- after typing, when hit enter or click the add button, add a new item to the list on the server side(into json file)
+   - when an item is successfully added to the server side, show the item on client side, and enable remove
 
-### HOW TO RUN THE CODE 
+3) Delete (completed) item(s) from the To Do List
+	- when clicking the remove button on the client side, delete the item on server side
+   - refresh the list on client side(remove the item in client side);
+
+
+### HOW TO RUN THE CODE
 
 Clone or download this folder onto your computer.
 
 On the server side:
     Open Terminal, navigate to the folder, enter -npm install, and after it's done, enter -npm start.
-    
+
 On the client side:
     once the server is running, open web browser, open localhost on port 3000.
 
@@ -34,8 +38,42 @@ Team Guacamole viewed the professor's API example to understand the "GET" and "P
 A NodeJS server is setup. Currentlly, it cannot be accessed through ip address, you have to run the server locally, you will need to clone the server code from the this repository. More information, check out "HOW TO RUN THE CODE"
 Team Guacamole's server side uses JSON (http://json.org/) format. The server provides the following API endpoints:
 
+#### Students endpoint
 
-####Coming soon...
+| Verb | URL endpoint                | Resource description                     |
+| :--- | --------------------------- | ---------------------------------------- |
+| GET  | /list                   | get list of all to do items |
+| GET  | /list/`$item-id`     | get info of each to do item with id=`$item-id`
+| POST  | /list/addItem | save info of each newly add item to the server |
+| POST  | /students/deleteItem | delete info of selected item from the server|
+
+##### /list
+
+```json
+[
+  {
+    "description":"avocado",
+    "id":0
+  },
+  {
+   "description":"pineapple",
+   "id": "1"
+  },
+  {
+   "description":"apple",
+   "id": "2"
+  },
+  ...
+]
+```
+##### /list/`$item-id`
+
+```json
+{
+   "description":"avocado",
+   "id":0
+}
+```
 
 
 ## Requirements
