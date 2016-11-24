@@ -6,6 +6,7 @@
 ### FEATURES
 
 1) load the initial list on client side page
+
 2) Add new item(s) to To Do List
    - after typing, when hit enter or click the add button, add a new item to the list on the server side(into json file)
    - when an item is successfully added to the server side, show the item on client side, and enable remove
