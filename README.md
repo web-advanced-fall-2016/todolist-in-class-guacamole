@@ -4,9 +4,8 @@
 ## Steps
 
 ### FEATURES
-1)load the initial list on client side
 
-1) load the initial list on client side page
+1) load the initial list on client side
 
 2) Add new item(s) to To Do List
    - after typing, when hit enter or click the add button, add a new item to the list on the server side(into json file)
@@ -28,13 +27,6 @@ On the client side:
     once the server is running, open web browser, open localhost on port 3000.
 
 
-### LIBRARIES / REFERENCES
-
-Team Guacamole referenced styling and web wireframes from a previous MFADT bootcamp web project example. This included simple HTML structure as well as some client-side Javascript for add/delete actions for To Do List items.
-
-Team Guacamole viewed the professor's API example to understand the "GET" and "POST" request on the server side.
-
-
 ### Server Info and API Endpoints
 
 A NodeJS server is setup. Currentlly, it cannot be accessed through ip address, you have to run the server locally, you will need to clone the server code from the this repository. More information, check out "HOW TO RUN THE CODE"
@@ -47,7 +39,7 @@ Team Guacamole's server side uses JSON (http://json.org/) format. The server pro
 | GET  | /list                   | get list of all to do items |
 | GET  | /list/`$item-id`     | get info of each to do item with id=`$item-id`
 | POST  | /list/addItem | save info of each newly add item to the server |
-| POST  | /students/deleteItem | delete info of selected item from the server|
+| POST  | /list/deleteItem | delete info of selected item from the server|
 
 ##### /list
 
@@ -55,7 +47,7 @@ Team Guacamole's server side uses JSON (http://json.org/) format. The server pro
 [
   {
     "description":"avocado",
-    "id":0
+    "id":"0"
   },
   {
    "description":"pineapple",
@@ -73,12 +65,17 @@ Team Guacamole's server side uses JSON (http://json.org/) format. The server pro
 ```json
 {
    "description":"avocado",
-   "id":0
+   "id":"0"
 }
 ```
+### LIBRARIES / REFERENCES
+
+Team Guacamole referenced styling and web wireframes from a previous MFADT bootcamp web project example. This included simple HTML structure as well as some client-side Javascript for add/delete actions for To Do List items.
+
+Team Guacamole viewed the professor's API example to understand the "GET" and "POST" request on the server side.
 
 
-## Requirements
+# Requirements
 ### Setup
 
 We are going to split into groups of two. Each team should collaborate to reach our goal. It's gonna be like the idea of [pair programming](https://en.wikipedia.org/wiki/Pair_programming). Engagement of both the students in coding is important. How to split the work is totally up to the teams (i.e. one person for front-end and the other for back-end).
