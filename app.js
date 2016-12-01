@@ -9,7 +9,7 @@ var favicon = require('serve-favicon');
 
 const db = require('./db.js');
 var fs = require('fs');
-var list = require('./todolist')
+var list = require('./todolist.json')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,17 +49,41 @@ app.get('/list/:item_id', function(req,res,next){
 
 app.post('/list/addItem', function(req,res,next){
     console.log(req.body);
-    list.push(req.body);
-    db.updateList(req.body);
-    console.log(list);
+    let data = req.body;
+    if( data.description) {
+        let newItem = {
+            description: data.description,
+            id: list.length
+        };
+        list.push(newItem);
+        res.json({message: 'success', data: newItem});
+        db.updateList(data);
+    }else {
+        res.json({message: 'error', data: {}});
+    }
 });
 
 
 app.post('/list/deleteItem', function(req,res,next){
     console.log(req.body);
-    list.pop(req.body);
-    db.updateList(req.body);
-    console.log(list);
+    let data = req.body;
+    let deleteItem =req.body.id;
+    // if( data.description) {
+    //     let newItem = {
+    //         description: data.description,
+    //         id: list.length
+    //     };
+    //     list.push(newItem);
+    //     res.json({message: 'success', data: newItem});
+    //     db.updateList(data);
+    // }else {
+    //     res.json({message: 'error', data: {}});
+    // }
+    // console.log(data);
+    let deleted = list.splice(deleteItem, 1);
+
+    db.updateList();
+    console.log(deleted);
 });
 
 const server = http.createServer(app);

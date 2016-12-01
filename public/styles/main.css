@@ -50,7 +50,6 @@ body {
   background-color: #f9f9f9;
 }
 
-
 .taskInput{
    margin:0;
 }
@@ -71,40 +70,50 @@ body {
 }
 
 .taskList{
-   width:86%;
+   width:87%;
    height:800px;
    border: none;
-   margin-top: 10px;
+   margin:0;
+   /*padding-top: 0.1em;*/
 }
 
 .addButton{
    cursor: pointer;
    margin:0;
    width: 80px;
+   height:27px;
    font-size:14px;
    border-radius: 0px;
-   border: 1px solid #eee;
-   border-top-color: #ddd;
+   border: 1px solid rgba(102,165,45,1);
+   /*border-top-color: ;*/
+   /*border:none;*/
+   color:rgba(181,83,22,1);
    padding:4px;
+   background-color: rgba(215,235,139,1);
    /*float:left;*/
 }
 
 .item{
    height:1.83em;
    font-size:1em;
-   margin: 0.83em 0;
+   padding: 0.6em 0;
+   background-color: rgba(239,255,203,0.7);
 }
 .text{
+   height:1.83em;
    float:left;
+   margin-top: 0.2em;
    margin-left: 0.4em;
+   color:rgba(181,83,22,1);
 }
 
 .deleteButton{
    cursor: pointer;
    text-align: center;
+   color:rgba(181,83,22,1);
    height:1.83em;
    width:1.83em;
-   /*margin-top: -1.2em;*/
+   margin-top: 0.4em;
    float:right;
 }
 

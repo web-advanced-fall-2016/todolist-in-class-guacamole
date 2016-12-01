@@ -8,12 +8,12 @@
 1) load the initial list on client side
 
 2) Add new item(s) to To Do List
-   - after typing, when hit enter or click the add button, add a new item to the list on the server side(into json file)
-   - when an item is successfully added to the server side, show the item on client side, and enable remove
+- after typing, when hit enter or click the add button, add a new item to the list on the server side(into json file)
+- when an item is successfully added to the server side, show the item on client side, and enable remove
 
 3) Delete (completed) item(s) from the To Do List
-   - when clicking the remove button on the client side, delete the item on server side
-   - refresh the list on client side(remove the item in client side);
+- when clicking the remove button on the client side, delete the item on server side
+- refresh the list on client side(remove the item in client side);
 
 
 ### HOW TO RUN THE CODE
@@ -34,9 +34,9 @@ Team Guacamole's server side uses JSON (http://json.org/) format. The server pro
 
 #### Students endpoint
 
-| Verb | URL endpoint                | Resource description                     |
-| :--- | --------------------------- | ---------------------------------------- |
-| GET  | /list                   | get list of all to do items |
+| Verb | URL endpoint | Resource description        |
+| :--- | ------------ | --------------------------- |
+| GET  | /list        | get list of all to do items |
 | GET  | /list/`$item-id`     | get info of each to do item with id=`$item-id`
 | POST  | /list/addItem | save info of each newly add item to the server |
 | POST  | /list/deleteItem | delete info of selected item from the server|
@@ -68,6 +68,18 @@ Team Guacamole's server side uses JSON (http://json.org/) format. The server pro
    "id":"0"
 }
 ```
+#### /list/$item-id
+
+```json
+{
+  message: 'success',
+  data: {
+     description: 'Hellooo!',
+	 id: 134135 
+  }
+}
+```
+
 ### LIBRARIES / REFERENCES
 
 Team Guacamole referenced styling and web wireframes from a previous MFADT bootcamp web project example. This included simple HTML structure as well as some client-side Javascript for add/delete actions for To Do List items.

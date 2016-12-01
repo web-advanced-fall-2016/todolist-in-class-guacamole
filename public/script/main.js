@@ -21,15 +21,7 @@
     let addBtn = document.querySelector('.addButton');
     let input = document.querySelector('#inputBox');
 
-    if (document.readyState != "loading") {
-        app();
-    } else {
-        document.addEventListener('DOMContentLoaded', function() {
-            app();
-        }, false);
-    }
-
-    function init(){
+    function update(){
         console.log('getgetget');
         $.ajax({
             method: "GET",
@@ -45,78 +37,73 @@
                     item.id = `${res.id}`;
                     item.innerHTML = `
                     <div class = "text">${res.description}</div>
-                    <div class = deleteButton>X</div>
+                    <div class = deleteButton>x</div>
                     `
                     list.appendChild(item);
                     itemArray.push(res);
-                    console.log(res.id);
+
+                    console.log(res);
+
+                    let deleteBtn = item.querySelector(".deleteButton");
+                    deleteBtn.addEventListener('click', function(){
+                        deleteItem(res);
+                        console.log(res);
+                    });
                 });
             }
         });
     };
 
-    function addToServer(data){
+    function addItem(event){
+        let description = input.value;
+        newItem = {description: description};
+        itemArray.push(newItem);
+        // console.log(newItem);
         $.ajax({
             method: "POST",
-            data:data,
-            url: `${baseURL}/list/addItem`,
-            success:console.log(data + "sent")
+            data: newItem,
+            url: `${baseURL}/list/addItem`
         }).done(function(res){
-            addItem(res);
-        });
-    };
+            // console.log(res.data);
+            if( res.message == 'success') {
+                let newItem = document.createElement('div');
+                newItem.classList.add('item');
+                newItem.id = res.data.id;
+                newItem.innerHTML = `
+                <div class = "text">${res.data.description}</div>
+                <div class = deleteButton>x</div>
+                `;
 
-    function addItem(newItem){
-        // console.log("addddddd");
-        // $.ajax({
-        //     method: "GET",
-        //     url: `${baseURL}/list`,
-        // }).done(function (res) {
+                list.appendChild(newItem);
+                let deleteBtn = newItem.querySelector(".deleteButton");
+                deleteBtn.addEventListener('click', function(){
+                    deleteItem(res);
+                    console.log(res);
 
-            let description = input.value;
-            newItem = {description: description, id: itemArray.length}
-            itemArray.push(newItem);
-            console.log(newItem);
-            addToServer(newItem);
+                });
 
-            newItem = document.createElement('div');
-            newItem.classList.add('item');
-            newItem.id = itemArray.length-1;
-            newItem.innerHTML = `
-            <div class = "text">${description}</div>
-            <div class = deleteButton>X</div>
-            `
-            list.appendChild(newItem);
-        // });
-
-        console.log("client updated");
-    }
-
-    function deleteInServer(item){
-        $.ajax({
-            method: "POST",
-            data:data,
-            url: `${baseURL}/list/deleteItem`,
-            success:console.log(data + "sent")
-        }).done(function(res){
-            deleteItem(res);
-        });
-    };
-
-    function deleteItem(item){
-        let deleteBtn = document.querySelector('.deleteButton');
-        deleteBtn.addEventListener('click', function(e){
-            if(e.target === this){
-                // console.log('clickkkkk');
-                e.preventDefault();
-                let itemID = e.target.parentElement.id;
-                deleteInServer(itemID);
+                input.value = '';
             }
         });
     }
 
+    function deleteItem(evnt){
+        let data = evnt;
+        let itemNumber = evnt.id;
+        console.log(evnt.id);
 
-    function app(){
+        $.ajax({
+            method: "POST",
+            data: data,
+            url: `${baseURL}/list/deleteItem`
+        }).done(function(res){
+            console.log(res);
+            // update();
+        });
+    }
+
+
+    function init(){
         console.log('initialize please');
         //add event listener for click
         addBtn.addEventListener('click', function(evnt){
@@ -130,6 +117,10 @@
                 addBtn.click();
             }
         });
+        update();
+    }
+
+    window.onload = function(){
         init();
     }
 

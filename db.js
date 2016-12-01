@@ -26,8 +26,11 @@ let db = {
         console.log("db.addItem:" + item);
     },
     deleteItem:(item) =>{
-        item.id = item.length;
-        list.pop(item);//Removes the last element of an array, and returns that element
+        // item.id = item.length;
+        taskArray.splice(taskNumber, 1);
+        // for(let item of list){
+        //     let
+        // }
         db.updateList();
         console.log("db.deleteItem:" + item);
     },
